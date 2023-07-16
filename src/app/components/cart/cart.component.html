@@ -1,0 +1,80 @@
+<div *ngIf="products.length; else empty">
+  <div class="cart-container">
+    <div class="cart-item-details">
+      <div *ngFor="let product of products" class="cart-item">
+        <img src="{{ product.url }}" />
+        <div class="cart-panel">
+          <div>{{ product.name }}</div>
+          <div>$ {{ product.price }}</div>
+          <div>
+            <input
+              type="number"
+              name=""
+              id=""
+              class="number-input"
+              min="0"
+              [value]="product.quantity"
+              (change)="onChange(product, $event)"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <h5>Total Price: {{ totalPrice | currency }}</h5>
+      </div>
+    </div>
+    <div class="w-25 form-container">
+      <form class="form-margin" [formGroup]="formInfo" (ngSubmit)="onSubmit()">
+        <h3 class="mt-0">Checkout</h3>
+        <div class="mb-3">
+          <label>Full Name: </label><br />
+          <input
+            type="text"
+            name="firstName"
+            placeholder="Enter First Name (minimum 3 characters)"
+            formControlName="firstName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Address: </label><br />
+          <input
+            type="text"
+            name="address"
+            placeholder="Enter Address (minimum 6 characters)"
+            formControlName="address"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Credit Card Number: </label><br />
+          <input
+            type="text"
+            name="creditCard"
+            maxlength="16"
+            placeholder="(16-digit number)"
+            formControlName="creditCard"
+          />
+        </div>
+
+        <p>We'll never share your payment details with anyone else.</p>
+
+        <div style="width: 100px">
+          <input
+            [disabled]="formInfo.invalid"
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="empty-cart-message">
+    <h3>Cart is Empty!</h3>
+    <h5><a routerLink="/"> Please add product to cart</a></h5>
+  </div>
+</ng-template>

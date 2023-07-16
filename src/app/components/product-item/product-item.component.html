@@ -1,0 +1,21 @@
+<div *ngIf="product" class="product-container">
+  <img
+    class="product-image"
+    [src]="product.url"
+    alt="image-product"
+    (click)="onClick(product.id)"
+  />
+  <p>{{ product.name }}</p>
+  <p>{{ product.price | currency }}</p>
+
+  <select class="select-input form-select" [(ngModel)]="qty">
+    <option
+      *ngFor="let option of quantityList"
+      [value]="option"
+      [selected]="option === 1"
+    >
+      {{ option }}
+    </option>
+  </select>
+  <button class="btn btn-primary" (click)="onSubmit()">Add to Cart</button>
+</div>

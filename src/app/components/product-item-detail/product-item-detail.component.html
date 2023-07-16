@@ -1,0 +1,24 @@
+<div *ngIf="product" class="detail-container">
+  <div>
+    <img class="product-image" src="{{ product.url }}" />
+  </div>
+  <div class="detail-item">
+    <h2>{{ product.name }}</h2>
+    <div>{{ product.price | currency }}</div>
+    <div>{{ product.description }}</div>
+
+    <select class="select-input form-select" [(ngModel)]="qty">
+      <option
+        *ngFor="let option of quantityList"
+        [value]="option"
+        [selected]="option === 1"
+      >
+        {{ option }}
+      </option>
+    </select>
+    <button class="btn btn-primary" (click)="onSubmit()">Add to Cart</button>
+    <div class="back-link">
+      <a routerLink="/"> &larr;Back to product list </a>
+    </div>
+  </div>
+</div>
