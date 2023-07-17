@@ -1,5 +1,8 @@
 <div class="product-index">
   <ng-container *ngFor="let product of products">
-    <app-product-item [product]="product"></app-product-item>
+    <app-product-item
+      [product]="product"
+      (addProduct)="addToCart($event)"
+    ></app-product-item>
   </ng-container>
 </div>

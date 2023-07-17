@@ -13,8 +13,8 @@
               id=""
               class="number-input"
               min="0"
-              [value]="product.quantity"
-              (change)="onChange(product, $event)"
+              [ngModel]="product.quantity"
+              (ngModelChange)="onChange(product, $event)"
             />
           </div>
         </div>
@@ -52,6 +52,7 @@
             type="text"
             name="creditCard"
             maxlength="16"
+            pattern="\d*"
             placeholder="(16-digit number)"
             formControlName="creditCard"
           />

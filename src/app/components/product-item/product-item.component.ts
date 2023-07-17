@@ -1,5 +1,5 @@
 import { ProductCart } from './../../models/ProductCart';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpService } from './../../services/http.service';
 import { Product } from './../../models/Product';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProductItemComponent implements OnInit {
   @Input() product: Product | undefined;
+  @Output() addProduct: EventEmitter<ProductCart> = new EventEmitter();
   qty: number = 1;
 
   quantityList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -25,9 +26,7 @@ export class ProductItemComponent implements OnInit {
       quantity: this.qty,
     };
 
-    this.httpService.handleCart(item as ProductCart);
-
-    window.alert('Added to cart');
+    this.addProduct.emit(item as ProductCart);
   }
 
   onClick(id?: number) {

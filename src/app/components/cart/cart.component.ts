@@ -42,20 +42,16 @@ export class CartComponent implements OnInit {
     });
   }
 
-  onChange(product: ProductCart, event: Event) {
-    const currentTarget = event.target as HTMLInputElement;
+  onChange(product: ProductCart, event: number) {
     const item = {
       ...product,
-      quantity:
-        +currentTarget.value != 0 ? +currentTarget.value - product.quantity : 0,
+      quantity: event != 0 ? event - product.quantity : 0,
     };
-
-    console.log(item);
 
     this.httpService.handleCart(item as unknown as ProductCart);
 
     this.getData();
-    if (currentTarget.value == '0') {
+    if (event == 0) {
       setTimeout(() => {
         window.alert('Remove from cart');
       }, 0);
