@@ -18,8 +18,12 @@ export class HttpService {
 
   handleCart(product: ProductCart) {
     let productList: ProductCart[] = JSON.parse(
-      localStorage.getItem('cart') || '[]'
+      window.localStorage.getItem('cart') || '[]'
     );
+
+    productList = productList ?? [];
+
+    console.log(productList);
 
     const idx = productList?.findIndex((obj) => obj.id === product.id);
     if (idx === -1) {
@@ -27,17 +31,21 @@ export class HttpService {
     } else if (product.quantity === 0) {
       productList.splice(idx, 1);
     } else {
-      productList[idx].quantity = productList[idx].quantity + product.quantity;
+      productList[idx].quantity =
+        productList[idx].quantity + Number(product.quantity);
     }
 
-    localStorage.setItem('cart', JSON.stringify(productList));
+    window.localStorage.setItem('cart', JSON.stringify(productList));
   }
 
   getListCart(): ProductCart[] {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    let productList: ProductCart[] = JSON.parse(
+      window.localStorage.getItem('cart') || '[]'
+    );
+    return productList ?? [];
   }
 
   clearCart() {
-    localStorage.clear();
+    window.localStorage.clear();
   }
 }
